@@ -105,11 +105,11 @@ Si tu souhaites une solution 100 % Blueprint, tu devras utiliser des outils exte
 Construction du container
 
 ```
-docker buildx build . --tag nginx-rtmp:1.0 .
+docker buildx build . --tag nginx-rtmp:1.0
 ```
 
 ```
-docker run -d -p 1935:1935 --name nginx-rtmp .
+docker run -d -p 1935:1935 nginx-rtmp:1.0
 ```
 
 
