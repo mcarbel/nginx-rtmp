@@ -66,4 +66,12 @@ COPY rtmp.conf /etc/nginx/modules-available/rtmp.conf
 RUN ln -s /etc/nginx/modules-available/rtmp.conf /etc/nginx/modules-enabled/rtmp.conf
 RUN nginx -t
 RUN nginx -s reload
-RUN 
+
+COPY stream.example.com.conf /etc/nginx/modules-available/stream.example.com.conf
+RUN curl https://raw.githubusercontent.com/arut/nginx-rtmp-module/master/stat.xsl -o /data/stat.xsl
+RUN ln -s /etc/nginx/sites-available/stream.example.com.conf /etc/nginx/sites-enabled/stream.example.com.conf
+RUN nginx -t
+RUN nginx -s reload
+
+COPY stunnel.conf /etc/stunnel/stunnel.conf
+
