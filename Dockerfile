@@ -10,7 +10,7 @@ ENV NGINX_RTMP_MODULE_VERSION=1.2.1
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y wget build-essential libpcre3 libpcre3-dev zlib1g-dev libssl-dev && \
-    apt-get install -y nano systemd
+    apt-get install -y nano
 
 # Download and decompress Nginx
 RUN mkdir -p /tmp/build/nginx && \
@@ -54,3 +54,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 1935
 CMD ["nginx", "-g", "daemon off;"]
 
+# MCA's customization
+# Install dependencies
+RUN apt-get install nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
+# nginx config setup
+RUN mkdir -p /data/hls /data/records && chown -R www-data:www-data /data
