@@ -66,7 +66,39 @@ Si tu souhaites éviter l'intégration manuelle, tu peux chercher des plugins Un
 
 En résumé, la méthode la plus courante est de passer par OpenCV pour capturer le flux vidéo et l'intégrer dans Unreal Engine sous macOS.
 
+Si ton projet Unreal Engine 5 est principalement en Blueprint et que tu souhaites utiliser une webcam sur macOS, voici une alternative qui ne nécessite pas de coder directement en C++ :
 
+1. Utiliser le Plugin Unreal Engine Media Framework
+Bien que le Media Framework d'Unreal Engine ne supporte pas directement la capture d'une webcam sur macOS, tu peux contourner cela en utilisant des outils externes pour transformer le flux de la webcam en un fichier vidéo, puis l'utiliser comme source Media.
+
+Étapes :
+
+Utiliser un logiciel tiers pour capturer le flux vidéo de la webcam :
+Tu peux utiliser un logiciel comme OBS Studio ou ffmpeg pour capturer en temps réel le flux de la webcam et l'enregistrer en tant que fichier vidéo, ou mieux, le diffuser en streaming en direct (RTMP ou autre protocole).
+Configurer un flux RTMP :
+Avec OBS ou ffmpeg, tu peux diffuser en direct le flux webcam vers un serveur RTMP local ou distant.
+Exemple de commande ffmpeg pour diffuser un flux en RTMP :
+```
+bash
+Copy code
+ffmpeg -f avfoundation -i "0" -f flv rtmp://localhost/live/stream
+```
+Créer une source Media dans Unreal Engine :
+Dans Unreal Engine, tu peux utiliser un Media Player pour lire un flux RTMP.
+Ouvre ton projet, va dans le Content Browser, fais un clic droit et sélectionne Media > Media Player. Cela te permettra de lire des vidéos ou des flux en streaming dans ton projet Blueprint.
+Ensuite, dans les propriétés de ton Media Player, entre l’URL de ton flux RTMP (par exemple, rtmp://localhost/live/stream).
+Afficher le flux dans Unreal :
+Après avoir créé ton Media Player, tu peux associer ce flux à une texture dans un Material Blueprint.
+Ensuite, applique ce material sur n'importe quel objet ou surface dans ta scène pour afficher le flux webcam.
+2. Utiliser un Plugin de Webcam via Blueprint
+Si tu préfères ne pas configurer manuellement un flux externe, tu peux explorer des plugins spécifiques qui exposent des fonctions de webcam directement utilisables dans Blueprint. Par exemple :
+
+VaQuoleUI (pour les versions précédentes d'Unreal) permet d'intégrer des éléments d'interface utilisateur (y compris les flux de caméra) en HTML5 dans Unreal. Bien qu'il ne soit pas mis à jour pour les versions récentes d'Unreal Engine 5, il pourrait servir de base si adapté.
+Webcam Texture Plugin : Tu pourrais rechercher des plugins dans le Marketplace qui offrent une intégration directe de la webcam, certains peuvent être compatibles avec macOS. Si un plugin est disponible, il te permettra de capturer des vidéos via Blueprint directement sans avoir à gérer des flux externes.
+3. Blueprint Solution avec OSC (Open Sound Control)
+Une autre solution consiste à utiliser un programme externe comme Processing pour capturer la webcam et envoyer des données en temps réel à Unreal Engine via OSC (Open Sound Control). Il existe des plugins Blueprint dans Unreal qui prennent en charge OSC pour recevoir les données, y compris les images.
+En résumé :
+Si tu souhaites une solution 100 % Blueprint, tu devras utiliser des outils externes pour capturer et diffuser le flux vidéo de la webcam, que tu pourras ensuite lire dans Unreal via le Media Framework. Une alternative serait de trouver un plugin dans le Marketplace qui expose la webcam directement en Blueprint, bien que cela soit plus rare sur macOS.
 
 # nginx et rtmp
 
