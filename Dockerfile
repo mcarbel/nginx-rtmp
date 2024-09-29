@@ -56,8 +56,8 @@ CMD ["nginx", "-g", "daemon off;"]
 
 # MCA's customization
 # Install dependencies
-# RUN apt-get install nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
-RUN apt-get install ffmpeg mediainfo certbot python-certbot-nginx stunnel4
+# RUN apt-get install -y nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
+RUN apt-get install -y ffmpeg mediainfo certbot python-certbot-nginx stunnel4
 
 # nginx config setup (folders)
 RUN mkdir -p /data/hls /data/records && chown -R www-data:www-data /data
