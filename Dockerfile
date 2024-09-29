@@ -7,8 +7,8 @@ ENV NGINX_VERSION=nginx-1.17.9
 # cf. https://github.com/arut/nginx-rtmp-module
 ENV NGINX_RTMP_MODULE_VERSION=1.2.1
 
-RUN apt-get update && \
-    apt-get upgrade && \
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
     apt-get install -y wget build-essential libpcre3 libpcre3-dev zlib1g-dev libssl-dev
 
 # Download and decompress Nginx
