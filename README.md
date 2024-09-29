@@ -3,7 +3,7 @@
 Construction du container
 
 ```
-docker build --tag nginx-rtmp:1.0 .
+docker buildx build . --tag nginx-rtmp:1.0 .
 ```
 
 ```
