@@ -55,6 +55,9 @@ EXPOSE 1935
 CMD ["nginx", "-g", "daemon off;"]
 
 # MCA's customization
+RUN nginx -t
+RUN nginx -s reload
+
 # Install dependencies
 # RUN apt-get install -y nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
 RUN apt-get install -y ffmpeg mediainfo certbot stunnel4
