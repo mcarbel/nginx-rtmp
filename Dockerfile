@@ -9,7 +9,8 @@ ENV NGINX_RTMP_MODULE_VERSION=1.2.1
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y wget build-essential libpcre3 libpcre3-dev zlib1g-dev libssl-dev
+    apt-get install -y wget build-essential libpcre3 libpcre3-dev zlib1g-dev libssl-dev && \
+    apt-get install -y nano systemd
 
 # Download and decompress Nginx
 RUN mkdir -p /tmp/build/nginx && \
