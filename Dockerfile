@@ -71,13 +71,13 @@ RUN apt-get update && \
     apt-get -o Dpkg::Options::="--force-confnew" install -y nginx libnginx-mod-rtmp python-certbot-nginx
 #RUN apt-get install -y nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
 RUN ln -s /etc/nginx/modules-available/rtmp.conf /etc/nginx/modules-enabled/rtmp.conf
-RUN nginx -t && nginx -s reload
+#RUN nginx -t && nginx -s reload
 
 
 COPY stream.example.com.conf /etc/nginx/modules-available/stream.example.com.conf
 RUN apt-get install -y curl
 RUN curl https://raw.githubusercontent.com/arut/nginx-rtmp-module/master/stat.xsl -o /data/stat.xsl
-#RUN ln -s /etc/nginx/sites-available/stream.example.com.conf /etc/nginx/sites-enabled/stream.example.com.conf
+RUN ln -s /etc/nginx/sites-available/stream.example.com.conf /etc/nginx/sites-enabled/stream.example.com.conf
 #RUN nginx -t && nginx -s reload
 
 
