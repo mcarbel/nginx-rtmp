@@ -67,7 +67,9 @@ RUN mkdir -p /data/hls /data/records && chown -R www-data:www-data /data
 # nginx config setup (conf files)
 COPY rtmp.conf /etc/nginx/modules-available/rtmp.conf
 # run script below only after installing new package nginx
-RUN apt-get install -y nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
+RUN apt-get update && \
+    apt-get -o Dpkg::Options::="--force-confnew" install -y nginx libnginx-mod-rtmp python-certbot-nginx
+#RUN apt-get install -y nginx libnginx-mod-rtmp ffmpeg mediainfo certbot python-certbot-nginx stunnel4
 RUN ln -s /etc/nginx/modules-available/rtmp.conf /etc/nginx/modules-enabled/rtmp.conf
 RUN nginx -t && nginx -s reload
 
