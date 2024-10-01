@@ -70,6 +70,7 @@ COPY rtmp.conf /etc/nginx/modules-available/rtmp.conf
 RUN apt-get update && \
     apt-get -o Dpkg::Options::="--force-confnew" install -y nginx
 RUN apt-get install -y libnginx-mod-rtmp python-certbot-nginx
+RUN mkdir -p /etc/nginx/modules-enabled
 RUN ln -s /etc/nginx/modules-available/rtmp.conf /etc/nginx/modules-enabled/rtmp.conf
 
 #RUN nginx -t
