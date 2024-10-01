@@ -51,8 +51,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Set up config file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 1935
-CMD ["nginx", "-g", "daemon off;"]
+
 
 # MCA's customization
 #RUN nginx -t && nginx -s reload
@@ -66,15 +65,15 @@ RUN mkdir -p /data/hls /data/records && chown -R www-data:www-data /data
 
 # nginx config setup (conf files)
 COPY rtmp.conf /etc/nginx/modules-available/rtmp.conf
+
 # run script below only after installing new package nginx
 RUN apt-get update && \
     apt-get -o Dpkg::Options::="--force-confnew" install -y nginx
 RUN apt-get install -y libnginx-mod-rtmp python-certbot-nginx
 RUN ln -s /etc/nginx/modules-available/rtmp.conf /etc/nginx/modules-enabled/rtmp.conf
-CMD ["nginx", "-t"]
+
 #RUN nginx -t
 #RUN nginx -s reload
-
 
 COPY stream.example.com.conf /etc/nginx/modules-available/stream.example.com.conf
 RUN apt-get install -y curl
@@ -82,6 +81,8 @@ RUN curl https://raw.githubusercontent.com/arut/nginx-rtmp-module/master/stat.xs
 RUN ln -s /etc/nginx/sites-available/stream.example.com.conf /etc/nginx/sites-enabled/stream.example.com.conf
 #RUN nginx -t && nginx -s reload
 
-
 COPY stunnel.conf /etc/stunnel/stunnel.conf
 
+# launch nginx
+EXPOSE 1935
+CMD ["nginx", "-g", "daemon off;"]
